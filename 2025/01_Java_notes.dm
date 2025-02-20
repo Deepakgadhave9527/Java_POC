@@ -1,21 +1,20 @@
 
 ========================================================================
-Here’s the information in dash format:
 
-- **getClass() method**:
-  - Returns the `Class` object associated with the runtime class of the object.
-  - Used to print the class of `obj_Get_and_String`.
-  - `getName()` method of the `Class` object is called to print the fully qualified name of the class.
+- **getClass() method**:  
+  - Returns the `Class` object associated with the runtime class of the object.  
+  - Provides information about the class of an object.  
+  - `getName()` method can be used to get the fully qualified name of the class.
 
-- **toString() method**:
-  - Returns a string representation of the object.
-  - By default, returns the class name followed by the `@` symbol and the object's hashcode in hexadecimal form.
-  - In this code, `toString()` is called on `obj_Get_and_String` and prints the default string representation unless overridden.
+- **toString() method**:  
+  - Returns a string representation of the object.  
+  - By default, returns the class name followed by the "@" symbol and the hexadecimal hashcode of the object.  
+  - Can be overridden to provide a custom string representation of the object.
 
-- **finalize() method**:
-  - Called by the garbage collector before an object is destroyed.
-  - Prints "Garbage has been collected" when `obj_Get_and_String` is garbage collected.
-  - Not guaranteed to be called; its usage is discouraged in modern Java (deprecated in later versions).
+- **finalize() method**:  
+  - Called by the garbage collector before an object is destroyed.  
+  - Allows the object to perform cleanup operations before being garbage collected.  
+  - Its usage is discouraged and it has been deprecated in later versions of Java.
 
 ========================================================================
 
