@@ -475,7 +475,9 @@ In Java, execution follows a strict order when a class is loaded. The priority o
 5️⃣ **Instance Variable Initialization** (Before the constructor)  
 6️⃣ **Constructor Execution** (Executed after instance blocks and variable initialization)  
 
+
 ---
+
 
 ### **Example of Execution Order**  
 
