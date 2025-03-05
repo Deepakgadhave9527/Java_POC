@@ -1,0 +1,644 @@
+========================================================================
+
+- **getClass() method**:
+
+  - Returns the `Class` object associated with the runtime class of the object.
+  - Provides information about the class of an object.
+  - `getName()` method can be used to get the fully qualified name of the class.
+
+- **toString() method**:
+
+  - Returns a string representation of the object.
+  - By default, returns the class name followed by the "@" symbol and the hexadecimal hashcode of the object.
+  - Can be overridden to provide a custom string representation of the object.
+
+- **finalize() method**:
+  - Called by the garbage collector before an object is destroyed.
+  - Allows the object to perform cleanup operations before being garbage collected.
+  - Its usage is discouraged and it has been deprecated in later versions of Java.
+
+========================================================================
+
+### `static` Keyword in Java
+
+The `static` keyword in Java is used for memory management and
+indicates that a particular member belongs to the class rather than instances of the class.
+
+It can be applied to **variables, methods, blocks, and nested classes**.
+
+1.  **Static Variables (Class Variables)**
+
+
+1.  A variable that is declared as `static` is known as a **static variable**.
+2.  We can access a static variable in three ways:
+    - By using its **identifier name**
+    - By using a **class object**
+    - Directly by using **ClassName**
+3.  For static variables, **JVM automatically initializes** them with their **default values**.
+4.  For **final static variables**, JVM will **not** initialize them. It is the **responsibility of the programmer** to initialize them.
+5.  There will be **only one copy** of a static variable available **throughout the program**.
+6.  **Static variables are not constants**. We can **change** the value of a static variable. Once updated, the new value will be **reflected throughout the entire program**.
+7.  **Static variables are initialized at the time of class loading**.
+8.  A **static variable can never be a local variable** (i.e., it **cannot** be declared inside a method).
+
+    - Shared across all instances of the class.
+    - Stored in the **method area** of memory.
+    - Initialized only once when the class is loaded.
+
+    class Example {
+    static int count = 0; // Static variable
+
+         Example() {
+             count++;  // Increments for every object creation
+         }
+
+         void showCount() {
+             System.out.println("Count: " + count);
+         }
+
+         public static void main(String[] args) {
+             Example e1 = new Example();
+             Example e2 = new Example();
+             Example e3 = new Example();
+
+             e1.showCount();  // Output: Count: 3
+         }
+
+    }
+
+2)  **Static Methods**
+
+1.  A method that is declared as `static` is known as a **static method**.
+2.  We can access a static method in three ways:
+    - By using its **identifier name**
+    - By using a **class object**
+    - Directly by using **ClassName**
+3.  We **can access a non-static variable inside a static method** **only** with the help of its **respective class object**.
+
+    - Belong to the class, not objects.
+    - Can only access static variables and methods directly.
+    - Cannot use `this` or `super` because they belong to instances.
+
+    class Utility {
+    static void showMessage() {
+    System.out.println("Hello from a static method!");
+    }
+
+        public static void main(String[] args) {
+            Utility.showMessage();  // Called without creating an object
+        }
+
+    }
+
+3)  **Static Blocks**
+
+1. If a Java program contains both `main()` and a **static block**, the **static block executes first**.
+2. We can write **any number of static blocks** in a program.
+3. **We cannot call static blocks manually**. They execute **automatically in the defined order (top to bottom)**.
+4. **Before Java 1.5**, we could run a Java program using only a **static block** (without `main()`). However, **after Java 1.5**, `main()` is **mandatory** for running a Java application.
+5. **Final static variables must be initialized** at the time of declaration **or** inside a **static block**. If we try to initialize them anywhere else, we will get a **compile-time error**.
+
+   - Used for initializing static variables.
+   - Executed only once when the class is loaded.
+   - Runs before the `main` method.
+
+4)  **Static Nested Class**
+    - A class inside another class that does not require an instance of the outer class.
+    - Can only access static members of the outer class.
+
+### Key Points:
+
+- `static` members improve **memory efficiency** as they are shared across objects.
+- **Utility methods** (e.g., `Math.pow()`) are often declared `static`.
+- **Entry point** (`public static void main(String[] args)`) must be static to allow JVM execution without creating an object.
+
+Would you like a more concise version? 🚀
+
+========================================================================
+
+### \*\*Constructor
+
+A **constructor** is a special method in Java used to initialize objects.
+It is called automatically when an object is created.
+
+### **1. Syntax of a Constructor:**
+
+```java
+
+class ClassName {
+    // Constructor
+    ClassName() {
+        // Initialization code
+    }
+}
+```
+
+### **2. Characteristics of a Constructor:**
+
+✔ Same name as the class.  
+✔ No return type (not even `void`).  
+✔ Called automatically when an object is created.  
+✔ Can be overloaded but not overridden.
+
+### **3. Types of Constructors:**
+
+#### **a) Default Constructor (No Arguments)**
+
+- Provided automatically if no constructor is defined.
+- Initializes objects with default values.
+
+```java
+class Example {
+    Example() {  // Default Constructor
+        System.out.println("Default Constructor Called!");
+    }
+
+    public static void main(String[] args) {
+        Example obj = new Example();  // Calls constructor
+    }
+}
+```
+
+#### **b) Parameterized Constructor**
+
+- Used to pass arguments while creating an object.
+
+```java
+class Person {
+    String name;
+
+    Person(String personName) {  // Parameterized Constructor
+        name = personName;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+    }
+
+    public static void main(String[] args) {
+        Person p = new Person("Alice");
+        p.display();  // Output: Name: Alice
+    }
+}
+```
+
+#### **c) Copy Constructor (User-Defined)**
+
+- Copies values from another object.
+
+```java
+class Student {
+    String name;
+
+    Student(String name) {  // Parameterized Constructor
+        this.name = name;
+    }
+
+    Student(Student s) {  // Copy Constructor
+        this.name = s.name;
+    }
+
+    void display() {
+        System.out.println("Student Name: " + name);
+    }
+
+    public static void main(String[] args) {
+        Student s1 = new Student("John");
+        Student s2 = new Student(s1);  // Copy Constructor
+
+        s1.display();
+        s2.display();
+    }
+}
+```
+
+### **4. Uses of Constructors:**
+
+✔ Initializes object properties.  
+✔ Helps in enforcing object creation rules.  
+✔ Can be used to restrict instantiation (`private` constructor in Singleton).
+
+========================================================================
+
+### **methods** and **constructors**
+
+### **1. Purpose**
+
+- Constructor: Used to initialize an object when it is created. It sets up the initial state of an object.
+- Method: Defines behavior or actions that an object can perform after it's created.
+
+### 2. Name
+
+- Constructor: Must have the same name as the class.
+- Method: Can have any valid name, following Java naming conventions.
+
+### 3. Return Type
+
+- Constructor: Does not have a return type (not even `void`).
+- Method: Must specify a return type (e.g., `int`, `void`, `String`).
+
+### 4. Invocation
+
+- Constructor: Called automatically when an object is created using `new`.
+- Method: Called explicitly on an object.
+
+### 5. Overloading & Overriding
+
+- Constructor: Can be overloaded (multiple constructors with different parameters), but cannot be overridden.
+- Method: Can be overloaded and overridden (if it's not `static` or `final`).
+
+### 6. Default Behavior
+
+- Constructor: If no constructor is defined, Java provides a default constructor (no-arg).
+- Method: There is no default method; all methods must be explicitly defined.
+
+7. Memory Allocation
+   Constructor: Allocates memory for an object when using new.
+   Method: Works with an existing object; it does not allocate memory.
+
+### **Example Code**
+
+```java
+class Example {
+    int x;
+
+    // Constructor (same name as class, no return type)
+    Example(int value) {
+        x = value;
+    }
+
+    // Method (has a return type)
+    void display() {
+        System.out.println("Value: " + x);
+    }
+
+    public static void main(String[] args) {
+        Example obj = new Example(10); // Constructor is called automatically
+        obj.display(); // Method is called explicitly
+    }
+}
+```
+
+### **Output**
+
+```
+Value: 10
+```
+
+========================================================================
+
+top-level class can have public, default, final, abstract, sealed, and strictfp modifiers. It cannot have private, protected, or static.
+
+========================================================================
+
+### **When to Use Static vs. Non-Static Methods in Java**
+
+- **Use `static` methods when:**  
+  ✔ The method does **not** rely on instance variables.  
+  ✔ It belongs to the **class itself**, not an object.  
+  ✔ You need a utility function (e.g., `Math.pow()`).  
+  ✔ You want to call it without creating an object.
+
+- **Use non-static methods when:**  
+  ✔ The method **depends on instance variables**.  
+  ✔ It needs to modify or use object-specific data.  
+  ✔ Each object should have its own behavior.  
+  ✔ It represents an action related to an instance.
+
+========================================================================
+constructer can be static
+
+No, a **constructor cannot be `static`** in Java.
+
+### **Why?**
+
+1. **Constructors are called when objects are created, but `static` belongs to the class, not instances.**
+2. **A `static` constructor would mean calling it without creating an object, which contradicts its purpose.**
+3. **Java does not allow `static` constructors because it manages class loading differently (using static blocks for initialization).**
+
+### **Alternative:**
+
+Use a **static block** for class-level initialization instead.
+
+========================================================================
+
+### **Types of Variables in Java (with Examples)**
+
+#### **1. Instance Variable (Non-Static Variable)**
+
+- Belongs to an object, each object has its own copy.
+  - Declared inside a class but outside any method.
+  - Each object gets its own copy.
+  - Stored in **heap memory**.
+
+```java
+class Person {
+    String name;  // Instance variable
+
+    void setName(String n) {
+        name = n;
+    }
+
+    void display() {
+        System.out.println("Name: " + name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Person p1 = new Person();
+        p1.setName("Alice");
+        p1.display();  // Output: Name: Alice
+    }
+}
+```
+
+---
+
+#### **2. Static Variable (Class Variable)**
+
+- Shared across all instances of the class.
+- Declared using the static keyword inside a class.
+  - Shared across all objects of the class.
+  - Stored in **method area** (class memory)
+
+```java
+class Employee {
+    static String company = "TechCorp";  // Static variable
+
+    void display() {
+        System.out.println("Company: " + company);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Employee e1 = new Employee();
+        e1.display();  // Output: Company: TechCorp
+    }
+}
+```
+
+---
+
+#### **3. Local Variable**
+
+- Declared inside a method and exists only within that method.
+- Declared inside a method, constructor, or block.
+  - Accessible only within the method/block.
+  - Stored in **stack memory**.
+
+```java
+class Example {
+    void show() {
+        int num = 10;  // Local variable
+        System.out.println("Local Variable: " + num);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Example obj = new Example();
+        obj.show();  // Output: Local Variable: 10
+    }
+}
+```
+
+---
+
+#### **4. Final Variable (Constant Variable)**
+
+- Its value **cannot be changed** after initialization.
+- Declared with final, meaning the value **cannot be changed**.
+  - Can be instance, static, or local.
+
+```java
+class Constants {
+    final int MAX_VALUE = 100;  // Final variable
+
+    void display() {
+        System.out.println("Max Value: " + MAX_VALUE);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Constants obj = new Constants();
+        obj.display();  // Output: Max Value: 100
+    }
+}
+```
+
+========================================================================
+
+### **Instance Variable (`x`)**
+
+- `x` is an **instance variable**, meaning **each object** of the class gets its **own separate copy** of `x`.
+- It is initialized with **10** and increments to **11**, but **resets for each new object**.
+- **Instance variables are unique per object**, so changes to `x` in one object **do not** affect others.
+- **Stored in the object’s memory (Heap memory)**, so every new object gets a fresh copy of `x`.
+- **It does not retain** changes made by previous objects.
+- **Used when each object requires its own independent state**.
+- **Example behavior:**
+  ```
+  First object: x = 10 → x++ → 11
+  Second object: x = 10 → x++ → 11 (resets)
+  Third object: x = 10 → x++ → 11 (resets)
+  ```
+
+---
+
+### **Static Variable (`y`)**
+
+- `y` is a **static variable**, meaning it is **shared across all objects** of the class.
+- It is initialized with **10**, and each new object increments it, retaining the updated value.
+- **Static variables belong to the class itself**, not individual objects.
+- **Stored in class memory (Method Area)**, ensuring all instances share the same `y`.
+- **Changes to `y` persist across all objects** since it is not reset for new instances.
+- **Used when a value needs to be shared and modified across all objects**.
+- **Example behavior:**
+  ```
+  First object: y = 10 → y++ → 11
+  Second object: y = 11 → y++ → 12
+  Third object: y = 12 → y++ → 13
+  ```
+
+========================================================================
+### **Priority of Execution in Java (Static vs. Instance vs. Main Method Execution Order)**  
+
+In Java, execution follows a strict order when a class is loaded. The priority of execution is as follows:  
+
+1️⃣ **Static Blocks** (Executed first when the class is loaded, in top-to-bottom order)  
+2️⃣ **Static Variables Initialization** (Happens alongside static blocks)  
+3️⃣ **Main Method Execution** (After all static blocks finish executing)  
+4️⃣ **Instance Blocks (Non-Static Blocks)** (Executed when an object is created, before the constructor)  
+5️⃣ **Instance Variable Initialization** (Before the constructor)  
+6️⃣ **Constructor Execution** (Executed after instance blocks and variable initialization)  
+
+---
+
+### **Example of Execution Order**  
+
+```java
+class Demo {
+    // Static block (Executes first)
+    static {
+        System.out.println("1️⃣ Static Block");
+    }
+
+    // Static variable initialization (Executes with static block)
+    static int staticVar = initializeStaticVar();
+
+    // Instance block (Executes before the constructor)
+    {
+        System.out.println("4️⃣ Instance Block");
+    }
+
+    // Instance variable initialization (Executes before constructor)
+    int instanceVar = initializeInstanceVar();
+
+    // Constructor (Executes after instance block and variable initialization)
+    Demo() {
+        System.out.println("6️⃣ Constructor");
+    }
+
+    // Static method for static variable initialization
+    static int initializeStaticVar() {
+        System.out.println("2️⃣ Static Variable Initialization");
+        return 100;
+    }
+
+    // Instance method for instance variable initialization
+    int initializeInstanceVar() {
+        System.out.println("5️⃣ Instance Variable Initialization");
+        return 200;
+    }
+
+    // Main method (Executes after all static blocks)
+    public static void main(String[] args) {
+        System.out.println("3️⃣ Main Method");
+        Demo obj = new Demo(); // Creating an object to trigger instance execution
+    }
+}
+```
+
+---
+
+### **Expected Output:**  
+```
+1️⃣ Static Block  
+2️⃣ Static Variable Initialization  
+3️⃣ Main Method  
+4️⃣ Instance Block  
+5️⃣ Instance Variable Initialization  
+6️⃣ Constructor  
+```
+
+---
+
+### **Key Takeaways on Execution Priority:**  
+- **Static blocks and static variable initializations** happen **before** `main()`.  
+- **Instance blocks and instance variable initializations** happen when **an object is created** (before the constructor).  
+- **Constructor executes last** in instance creation.  
+- **Static members belong to the class** (executed once per class load), while **instance members belong to objects** (executed per object creation).  
+
+Would you like to see any variations or additional details?
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
+
+========================================================================
