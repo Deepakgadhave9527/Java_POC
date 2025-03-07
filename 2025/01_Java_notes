@@ -546,10 +546,71 @@ class Demo {
 
 Would you like to see any variations or additional details?
 ========================================================================
+Key Takeaways
+✅ Static variables are accessed directly: ClassName.variableName.
+✅ Static methods require () to execute: ClassName.methodName().
 
 ========================================================================
+package App.js;
 
+public class ClassC {
+	int x = 10;
+	static int y=20;
+
+	public static void main(String[] args) {
+		ClassC t1 = new ClassC();
+		ClassC t2 = new ClassC();
+		t1.x=100;
+		t1.y=200;
+    System.out.println("t1.x "+t1.x);
+    System.out.println("t2.x "+t2.x);
+    System.out.println("t1.y "+t1.y);
+    System.out.println("t2.y "+t2.y);
+	}
+
+}
+
+### **Instance Variable (`x`)**  
+- **Belongs to** → Each object separately.  
+- **Memory** → Created when an object is instantiated.  
+- **Modification Affects** → Only that specific object (`t1.x ≠ t2.x`).  
+- **Access** → Needs an object (`t1.x`).  
+
+### **Static Variable (`y`)**  
+- **Belongs to** → The class itself (shared).  
+- **Memory** → Created when the class is loaded.  
+- **Modification Affects** → All instances (`t1.y = t2.y`).  
+- **Access** → Can be accessed via class (`ClassC.y`).  
+
+### **Why `t1.x` and `t2.x` Are Different**  
+- Each object (`t1` and `t2`) gets its own copy of `x`.  
+- Changing `t1.x = 100;` only affects `t1`, not `t2`.  
+- `t2.x` remains `10`, the original value.  
+
+### **Why `t1.y` and `t2.y` Are the Same**  
+- `y` is static, meaning there is only one copy of `y` shared by all instances.  
+- When `t1.y = 200;` is executed, it updates the shared `y` for all instances.  
+- So, `t2.y` also prints `200`.  
 ========================================================================
+
+### **Type Casting**  
+It is a process of converting one data type into another data type (**except boolean**).  
+
+### **Implicit Typecasting (Widening)**  
+**Smaller Datatype → Larger Datatype**  
+1) Implicit typecasting is automatically done by the compiler.  
+2) In implicit typecasting, there is **NO** chance of loss of information.  
+3) Used when assigning a smaller data type to a larger data type.
+
+
+
+### **Explicit Typecasting (Narrowing)**  
+**Larger Datatype → Smaller Datatype**  
+1) Explicit typecasting is **not** done by the compiler; it is the **responsibility of the programmer**.  
+2) In explicit typecasting, there **may be a chance** of loss of information.  
+3) Requires explicit syntax using casting operators.
+
+
 
 ========================================================================
 
